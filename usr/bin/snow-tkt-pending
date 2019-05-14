@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+from __future__ import print_function
+
 #########################################################################
 ### Configuration #######################################################
 #########################################################################
@@ -44,14 +46,14 @@ def main():
 
     try:
         tkt_original = pyfnalsnow.tktByNumber(number)
-    except Exception, e:
-        print "could not find ticket matching %s: %s" % (number, e)
+    except Exception as e:
+        print("could not find ticket matching %s: %s" % (number, e))
 
     try:
         tkt = pyfnalsnow.tktPending(tkt_original, reason=opt.reason, debug=opt.debug)
-        print u"\n".join(pyfnalsnow.tktStringShort(tkt)).encode('utf-8').strip()
-    except Exception, e:
-        print "could not resolve ticket %s: %s" % (number, e)
+        print("\n".join(pyfnalsnow.tktStringShort(tkt)).strip())
+    except Exception as e:
+        print("could not resolve ticket %s: %s" % (number, e))
 
     sys.exit(0)
 

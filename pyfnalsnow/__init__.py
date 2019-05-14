@@ -3,6 +3,8 @@ pyfnalsnow - a python module to interact with the JSON API of the FNAL
 Service Now (SNOW) instance.
 """
 
+from __future__ import print_function
+
 #########################################################################
 ### Configuration #######################################################
 #########################################################################
@@ -63,11 +65,11 @@ def pyfnalsnow_config(file=config_file):
 
     try:
         config = yaml.load(open(file, 'r'))
-    except IOError, e:
-        print "file error:  %s" % e
+    except IOError as e:
+        print("file error:  %s" % e)
         sys.exit (2)
-    except Exception, e:
-        print "unknown error:  %s" % e
+    except Exception as e:
+        print("unknown error:  %s" % e)
         sys.exit (2)
 
     return config
@@ -89,6 +91,7 @@ def connect():
         user=config['servicenow']['username'],
         password=config['servicenow']['password']
     )
+    print("connected to instance: "+snow.instance)
 
     return snow
 
@@ -123,7 +126,7 @@ def cacheQueryOne(table, query):
             elif len(entries) > 1:
                 raise Exception('too many entries (%s) (%s vs %s)' % (len(entries), query, table))
             result = entries[0]
-        except Exception, e:
+        except Exception as e:
             result = { 'value': '(no match)' }
         cache[table][q] = result
     return cache[table][q]
@@ -317,7 +320,7 @@ def tktSearch(table, **args):
     try:
         search = tableSwitch(table, 'tktFilter', **args)
         r = snow.resource(api_path='/table/%s' % table).get(query=search, stream=True)
-    except Exception, e:
+    except Exception as e:
         raise e
 
     ret = []

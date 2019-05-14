@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+from __future__ import print_function
+
 #########################################################################
 ### Configuration #######################################################
 #########################################################################
@@ -48,7 +50,7 @@ def main():
 
     tkt = pyfnalsnow.tktUpdate(number, update)
 
-    print u"\n".join(pyfnalsnow.tktString(tkt, 'base')).encode('utf-8').strip()
+    printi("\n".join(pyfnalsnow.tktString(tkt, 'base')).strip())
 
     sys.exit(0)
 
